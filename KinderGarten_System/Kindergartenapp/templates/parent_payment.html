@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <title>Payment</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <style>
+        /* Add your styles here */
+        * {
+            padding: 0;
+            margin: 0;
+            text-decoration: none;
+            list-style: none;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: #333;
+            background-image: url("{% static 'b2.jpg'%}");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
+        nav {
+            background: #ff4757;
+            height: 80px;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        label.logo {
+            color: white;
+            font-size: 35px;
+            font-weight: bold;
+        }
+
+        nav ul {
+            display: flex;
+            align-items: center;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            color: white;
+            font-size: 17px;
+            padding: 7px 13px;
+            border-radius: 3px;
+            text-transform: uppercase;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        nav ul li a:hover,
+        nav ul li a.active {
+            background: #1b9bff;
+            color: white;
+        }
+
+        .checkbtn {
+            font-size: 30px;
+            color: white;
+            display: none;
+            cursor: pointer;
+        }
+
+        #check {
+            display: none;
+        }
+
+        @media (max-width: 858px) {
+            .checkbtn {
+                display: block;
+            }
+
+            nav ul {
+                position: fixed;
+                width: 100%;
+                height: 100vh;
+                background: #2c3e50;
+                top: 80px;
+                left: -100%;
+                flex-direction: column;
+                align-items: center;
+                transition: all 0.5s;
+            }
+
+            nav ul li {
+                margin: 20px 0;
+            }
+
+            nav ul li a {
+                font-size: 20px;
+            }
+
+            nav ul li a:hover,
+            nav ul li a.active {
+                background: none;
+                color: #1b9bff;
+            }
+
+            #check:checked ~ ul {
+                left: 0;
+            }
+        }
+
+        .container {
+            padding: 64px 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            letter-spacing: 5px;
+            margin-bottom: 20px;
+            font-size: 36px;
+        }
+
+        p {
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .activities-section {
+            margin-top: 40px;
+        }
+
+        .activities-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            color: #ff4757;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .activities-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .activity {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .activity img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .activity h3 {
+            font-size: 24px;
+            color: #ff4757;
+            margin: 10px 0;
+        }
+
+        .activity p {
+            font-size: 16px;
+            color: #555;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-container img {
+            height: 50px;
+            width: auto;
+            margin-left: 10px; /* Adjusts the spacing between the text and the image */
+        }
+
+        .payment-section {
+            margin-top: 40px;
+            text-align: left;
+        }
+
+        .payment-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            color: #ff4757;
+            margin-bottom: 20px;
+            text-align: center
+        }
+        h3 {
+            text-align: center
+        }
+
+        .payment-form {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .payment-form img {
+            max-width: 300px; /* Make the image smaller */
+            height: auto;
+            margin-bottom: 20px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .payment-form label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .payment-form input[type="text"],
+        .payment-form input[type="number"],
+        .payment-form input[type="date"],
+        .payment-form input[type="file"],
+        .payment-form select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .payment-form input[type="submit"] {
+            background-color: #ff4757;
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .payment-form input[type="submit"]:hover {
+            background-color: #e43e50;
+        }
+    </style>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+</head>
+<body>
+    <nav>
+        <input type="checkbox" id="check">
+        <label for="check" class="checkbtn">
+            <i class="fas fa-bars"></i>
+        </label>
+        <div class="logo-container">
+            <label class="logo">Tadika Kemas</label>
+            {% load static %}
+            <img src="{% static 'logo.svg' %}" alt="Logo">
+        </div>
+        <ul>
+            <li><a href="{% url 'home' %}">Logout</a></li>
+            <li><a href="{% url 'parent_activities' %}">Activities</a></li>
+            <li><a href="{% url 'parent_complain' %}">Complain</a></li>
+            <li><a href="{% url 'parent_grades' %}">Grades</a></li>
+            <li><a class="active" href="{% url 'parent_payment' %}">Payment</a></li>
+            <li><a href="{% url 'parent_register' %}">Register</a></li>
+            <li><a href="{% url 'parent_profile' %}">Profile</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <div class="payment-section">
+            <h2>Make a Payment for Annual Fee</h2>
+            <h3>RM 300.00 per year</h3><br>
+            <form class="payment-form" action="{% url 'parent_payment' %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <img src="{% static 'qr.jpg' %}" alt="QR Code">
+                <label for="Child_Name">Child's Name</label>
+                <input type="text" id="Child_Name" name="Child_Name" required>
+
+                <label for="Payment_Date">Payment Date</label>
+                <input type="date" id="Payment_Date" name="Payment_Date" required>
+
+                <label for="Payment_Details">Upload Receipt</label>
+                <input type="file" id="Payment_Details" name="Payment_Details" accept="image/*,application/pdf" required>
+
+                <input type="submit" value="Submit Payment">
+            </form>
+
+            {% if success %}
+            <div class="success-message">
+                Payment has been submitted successfully.
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

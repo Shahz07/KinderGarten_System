@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <title>Signup</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            text-decoration: none;
+            list-style: none;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: #333;
+            background-image: url("{% static 'b2.jpg'%}");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
+        nav {
+            background: #ff4757;
+            height: 80px;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        label.logo {
+            color: white;
+            font-size: 35px;
+            font-weight: bold;
+        }
+
+        nav ul {
+            display: flex;
+            align-items: center;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            color: white;
+            font-size: 17px;
+            padding: 7px 13px;
+            border-radius: 3px;
+            text-transform: uppercase;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        nav ul li a:hover,
+        nav ul li a.active {
+            background: #1b9bff;
+            color: white;
+        }
+
+        .checkbtn {
+            font-size: 30px;
+            color: white;
+            display: none;
+            cursor: pointer;
+        }
+
+        #check {
+            display: none;
+        }
+
+        @media (max-width: 858px) {
+            .checkbtn {
+                display: block;
+            }
+
+            nav ul {
+                position: fixed;
+                width: 100%;
+                height: 100vh;
+                background: #2c3e50;
+                top: 80px;
+                left: -100%;
+                flex-direction: column;
+                align-items: center;
+                transition: all 0.5s;
+            }
+
+            nav ul li {
+                margin: 20px 0;
+            }
+
+            nav ul li a {
+                font-size: 20px;
+            }
+
+            nav ul li a:hover,
+            nav ul li a.active {
+                background: none;
+                color: #1b9bff;
+            }
+
+            #check:checked ~ ul {
+                left: 0;
+            }
+        }
+
+        .container {
+            padding: 10px 20px;
+            max-width: 600px;
+            margin: 40px auto; /* Added margin to create space from the navbar */
+            background: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-radius: 10px;
+        }
+
+        .form_area {
+            padding: 20px;
+            text-align: left;
+        }
+
+        .form_area .title {
+            font-family: 'Playfair Display', serif;
+            letter-spacing: 5px;
+            margin-bottom: 20px;
+            font-size: 36px;
+            text-align: center;
+            color: #ff4757;
+        }
+
+        .form_group {
+            margin-bottom: 20px;
+        }
+
+        .sub_title {
+            display: block;
+            font-size: 18px;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        .form_style {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 5px;
+            background-color: #ff4757;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #1b9bff;
+        }
+
+        .link {
+            color: #1b9bff;
+            text-align: center;
+            display: block;
+            margin-top: 20px;
+        }
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo-container img {
+            height: 50px;
+            width: auto;
+            margin-left: 10px; /* Adjusts the spacing between the text and the image */
+        }
+    </style>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+</head>
+<body>
+    <nav>
+        <input type="checkbox" id="check">
+        <label for="check" class="checkbtn">
+            <i class="fas fa-bars"></i>
+        </label>
+        <div class="logo-container">
+            <label class="logo">Tadika Kemas</label>
+            {% load static %}
+            <img src="{% static 'logo.svg' %}" alt="Logo">
+        </div>
+        <ul>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'Aboutus' %}">About</a></li>
+            <li><a href="{% url 'Activities' %}">Activities</a></li>
+            
+            <li><a class="active" href="{% url 'Login' %}">Login</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <div class="form_area">
+            <p class="title">PARENT SIGNUP</p>
+            <form action="{% url 'Signup' %}" method="post">
+                {% csrf_token %}
+                <div class="form_group">
+                    <label for="Parent_IC" class="sub_title">IC Number</label>
+                    <input type="text" placeholder="IC Number" name="Parent_IC" class="form_style" required>
+                </div>
+                <div class="form_group">
+                    <label for="Parent_Password" class="sub_title">Password</label>
+                    <input type="password" placeholder="Password" name="Parent_Password" class="form_style" required>
+                </div>
+                <div class="form_group">
+                    <label for="Parent_Name" class="sub_title">Name</label>
+                    <input type="text" placeholder="Name" name="Parent_Name" class="form_style" required>
+                </div>
+                <div class="form_group">
+                    <label for="Parent_Email" class="sub_title">Email</label>
+                    <input type="email" placeholder="Email address" name="Parent_Email" class="form_style" required>
+                </div>
+                <div class="form_group">
+                    <label for="Parent_Nophone" class="sub_title">Phone Number</label>
+                    <input type="text" placeholder="Phone Number" name="Parent_Nophone" class="form_style" required>
+                </div>
+                
+                <input type="submit" value="Submit" class="btn">
+                <p class="link">Already have an account? <a href="{% url 'Login' %}">Login Here!</a></p>
+            </form>
+        </div>
+    </div>
+    
+</body>
+</html>
